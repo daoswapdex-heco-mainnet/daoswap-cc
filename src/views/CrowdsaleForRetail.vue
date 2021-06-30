@@ -317,7 +317,7 @@
               <v-btn
                 class="mr-2"
                 v-if="!connected"
-                color="deep-orange darken-4 white--text"
+                color="#93B954"
                 block
                 @click="onConnect"
               >
