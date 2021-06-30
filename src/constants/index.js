@@ -2,11 +2,11 @@ export const CrowdsaleForAngelContractAddress =
   "0x13ccaEFEe7D035cBeD83ffFAdCE0ba1F7a72b50D";
 
 export const CrowdsaleForRetailContractAddress =
-  "0x195D149643D5834b61480ea2eD430021C1502912";
+  "0x363f4750bd1f702849B91d78AF107cDb17954440";
 
-export const DATAddress = "0x36653A4089DEB09A4782bf9EaEE5C8f4381ad010";
+export const DATAddress = "0x738B815eaDD06E0041b52B0C9d4F0d0D277B24bA";
 
-export const DAOAddress = "0xd2f169c79553654452a3889b210AEeF494eB2374";
+export const DAOAddress = "0xc096332CAacF00319703558988aD03eC6586e704";
 
 export const ZeroAddress = "0x0000000000000000000000000000000000000000";
 

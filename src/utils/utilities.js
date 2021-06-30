@@ -198,17 +198,17 @@ export function formatCountdown(value) {
     }
     if (secondTime > 0) {
       secondTime = parseInt(secondTime) >= 10 ? secondTime : "0" + secondTime;
-      result = " " + secondTime; // "秒";
+      result = " " + secondTime + i18n.t("seconds"); // "秒";
     }
     if (minuteTime > 0) {
       minuteTime = parseInt(minuteTime) >= 10 ? minuteTime : "0" + minuteTime;
-      result = "" + minuteTime + " : " + result;
+      result = " " + minuteTime + i18n.t("minutes") + result;
     }
     if (hourTime > 0) {
-      result = "" + parseInt(hourTime) + " : " + result;
+      result = " " + parseInt(hourTime) + i18n.t("hours") + result;
     }
     if (dayTime > 0) {
-      result = "" + parseInt(dayTime) + " : " + result;
+      result = "" + parseInt(dayTime) + i18n.t("days") + result;
     }
   }
   return result;
