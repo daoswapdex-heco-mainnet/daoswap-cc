@@ -14,7 +14,7 @@
             <!-- 开始时间小于等于当前时间，显示PE信息， 7月1号0点打开 -->
             <v-card-text
               v-if="
-                currentTime >= 1625068800 &&
+                isDisplayForStatus &&
                   dataForCrowdsale.openingTime <= currentTime
               "
             >
@@ -42,7 +42,7 @@
             <v-card-text
               justify="center"
               v-if="
-                currentTime >= 1625068800 &&
+                isDisplayForStatus &&
                   dataForCrowdsale.openingTime > currentTime &&
                   countdownTime > 0 &&
                   !isRealStart
@@ -61,7 +61,7 @@
             <v-card-text
               justify="center"
               v-if="
-                currentTime >= 1625068800 &&
+                isDisplayForStatus &&
                   dataForCrowdsale.openingTime > currentTime &&
                   countdownTime > 0 &&
                   isRealStart
@@ -364,6 +364,7 @@ export default {
       text: `Hello`
     },
     currentTime: Math.floor(Date.now() / 1000),
+    isDisplayForStatus: 1625068800 <= Math.floor(Date.now() / 1000),
     timer: null,
     // 倒计时时间值
     isRealStart: false,
@@ -398,6 +399,7 @@ export default {
       this.countdownTime -= 1;
       if (this.countdownTime <= 0 && this.isRealStart) {
         clearInterval(this.timer);
+        window.location.reload();
       } else if (this.countdownTime <= 0 && !this.isRealStart) {
         this.countdownTime = 300;
         this.isRealStart = true;
