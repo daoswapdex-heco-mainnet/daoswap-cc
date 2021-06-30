@@ -39,6 +39,9 @@ export function ellipseAddress(address, width = 10) {
  * @returns {string | null}
  */
 export function parseTime(time, cFormat) {
+  if (time === "") {
+    return "";
+  }
   if (arguments.length === 0) {
     return null;
   }
@@ -120,6 +123,9 @@ export function formatTime(time, option) {
 
 // 格式化秒数
 export function formatSeconds(value) {
+  if (value === "") {
+    return "";
+  }
   var secondTime = parseInt(value); // 秒
   var minuteTime = 0; // 分
   var hourTime = 0; // 小时

@@ -11,8 +11,13 @@
               </span>
             </v-card-title>
             <v-divider></v-divider>
-            <!-- 开始时间小于等于当前时间，显示PE信息 -->
-            <v-card-text v-if="dataForCrowdsale.openingTime <= currentTime">
+            <!-- 开始时间小于等于当前时间，显示PE信息， 7月1号0点打开 -->
+            <v-card-text
+              v-if="
+                currentTime >= 1625068800 &&
+                  dataForCrowdsale.openingTime <= currentTime
+              "
+            >
               <v-row align="center">
                 <v-col class="body-1" cols="12">
                   <p>
@@ -36,7 +41,12 @@
             <!-- 倒计时时间大于0并且未真正开始,显示开始倒计时信息 -->
             <v-card-text
               justify="center"
-              v-if="countdownTime > 0 && !isRealStart"
+              v-if="
+                currentTime >= 1625068800 &&
+                  dataForCrowdsale.openingTime > currentTime &&
+                  countdownTime > 0 &&
+                  !isRealStart
+              "
             >
               <v-row align="center">
                 <v-col class="display-1" cols="12">
@@ -50,7 +60,12 @@
             <!-- 倒计时时间大于0并且真正开始,显示结束倒计时信息 -->
             <v-card-text
               justify="center"
-              v-if="countdownTime > 0 && isRealStart"
+              v-if="
+                currentTime >= 1625068800 &&
+                  dataForCrowdsale.openingTime > currentTime &&
+                  countdownTime > 0 &&
+                  isRealStart
+              "
             >
               <v-row align="center">
                 <v-col class="display-1" cols="12">
@@ -384,7 +399,7 @@ export default {
       if (this.countdownTime <= 0 && this.isRealStart) {
         clearInterval(this.timer);
       } else if (this.countdownTime <= 0 && !this.isRealStart) {
-        this.countdownTime = 5 * 60;
+        this.countdownTime = 300;
         this.isRealStart = true;
       }
     },
@@ -406,9 +421,8 @@ export default {
         );
         const weiRaised = await contract.methods.weiRaised().call();
         this.dataForCrowdsale.weiRaised = weiToEther(weiRaised);
-        this.dataForCrowdsale.openingTime = await contract.methods
-          .openingTime()
-          .call();
+        const openingTime = await contract.methods.openingTime().call();
+        this.dataForCrowdsale.openingTime = parseInt(openingTime) + 300;
         this.handleSetTimeup(this.dataForCrowdsale.openingTime);
         this.dataForCrowdsale.closingTime = await contract.methods
           .closingTime()
