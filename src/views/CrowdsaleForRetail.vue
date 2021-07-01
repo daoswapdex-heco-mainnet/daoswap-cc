@@ -12,12 +12,7 @@
             </v-card-title>
             <v-divider></v-divider>
             <!-- 开始时间小于等于当前时间，显示PE信息， 7月1号0点打开 -->
-            <v-card-text
-              v-if="
-                isDisplayForStatus &&
-                  dataForCrowdsale.openingTime <= currentTime
-              "
-            >
+            <v-card-text v-if="dataForCrowdsale.openingTime <= currentTime">
               <v-row align="center">
                 <v-col class="body-1" cols="12">
                   <p>
@@ -42,8 +37,7 @@
             <v-card-text
               justify="center"
               v-if="
-                isDisplayForStatus &&
-                  dataForCrowdsale.openingTime > currentTime &&
+                dataForCrowdsale.openingTime > currentTime &&
                   countdownTime > 0 &&
                   !isRealStart
               "
@@ -61,8 +55,7 @@
             <v-card-text
               justify="center"
               v-if="
-                isDisplayForStatus &&
-                  dataForCrowdsale.openingTime > currentTime &&
+                dataForCrowdsale.openingTime > currentTime &&
                   countdownTime > 0 &&
                   isRealStart
               "
@@ -385,7 +378,6 @@ export default {
       text: `Hello`
     },
     currentTime: Math.floor(Date.now() / 1000),
-    isDisplayForStatus: 1625068800 <= Math.floor(Date.now() / 1000),
     timer: null,
     // 倒计时时间值
     isRealStart: false,
@@ -394,6 +386,13 @@ export default {
   created() {
     if (this.web3 && this.connected) {
       this.getAccountAssets();
+    }
+  },
+  watch: {
+    web3(web3) {
+      if (web3) {
+        this.getAccountAssets();
+      }
     }
   },
   computed: {
