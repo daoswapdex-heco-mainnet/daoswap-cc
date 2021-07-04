@@ -11,8 +11,23 @@
               </span>
             </v-card-title>
             <v-divider></v-divider>
-            <!-- 开始时间小于等于当前时间，显示PE信息， 7月1号0点打开 -->
             <v-card-text v-if="dataForCrowdsale.openingTime <= currentTime">
+              <v-row align="center">
+                <v-col class="body-1" cols="12">
+                  <p>
+                    {{ $t("OpeningTime") }}：
+                    {{ 1625407200 | parseTime("{y}-{m}-{d} {h}:{i}:{s}") }}
+                  </p>
+                  <p>
+                    {{ $t("ClosingTime") }}：
+                    {{ 1625407500 | parseTime("{y}-{m}-{d} {h}:{i}:{s}") }}
+                  </p>
+                  <p>{{ $t("Price") }}：0.5 USDT</p>
+                </v-col>
+              </v-row>
+            </v-card-text>
+            <!-- 开始时间小于等于当前时间，显示PE信息， 7月1号0点打开 -->
+            <!-- <v-card-text v-if="dataForCrowdsale.openingTime <= currentTime">
               <v-row align="center">
                 <v-col class="body-1" cols="12">
                   <p>
@@ -32,9 +47,9 @@
                   <p>{{ $t("Price") }}：0.5 USDT</p>
                 </v-col>
               </v-row>
-            </v-card-text>
+            </v-card-text> -->
             <!-- 倒计时时间大于0并且未真正开始,显示开始倒计时信息 -->
-            <v-card-text
+            <!-- <v-card-text
               justify="center"
               v-if="
                 dataForCrowdsale.openingTime > currentTime &&
@@ -50,9 +65,9 @@
                   </p>
                 </v-col>
               </v-row>
-            </v-card-text>
+            </v-card-text> -->
             <!-- 倒计时时间大于0并且真正开始,显示结束倒计时信息 -->
-            <v-card-text
+            <!-- <v-card-text
               justify="center"
               v-if="
                 dataForCrowdsale.openingTime > currentTime &&
@@ -68,7 +83,7 @@
                   </p>
                 </v-col>
               </v-row>
-            </v-card-text>
+            </v-card-text> -->
           </v-card>
           <!-- 认购操作 -->
           <v-card class="fill-width mt-10">
@@ -451,16 +466,16 @@ export default {
           CrowdsaleForRetailContractAddress,
           web3
         );
-        const weiRaised = await contract.methods.weiRaised().call();
-        this.dataForCrowdsale.weiRaised = weiToEther(weiRaised);
-        const openingTime = await contract.methods.openingTime().call();
-        this.dataForCrowdsale.openingTime = parseInt(openingTime) + 300;
-        this.handleSetTimeup(openingTime);
-        this.dataForCrowdsale.closingTime = await contract.methods
-          .closingTime()
-          .call();
-        const cap = await contract.methods.cap().call();
-        this.dataForCrowdsale.cap = weiToEther(cap);
+        // const weiRaised = await contract.methods.weiRaised().call();
+        // this.dataForCrowdsale.weiRaised = weiToEther(weiRaised);
+        // const openingTime = await contract.methods.openingTime().call();
+        // this.dataForCrowdsale.openingTime = parseInt(openingTime) + 300;
+        // this.handleSetTimeup(openingTime);
+        // this.dataForCrowdsale.closingTime = await contract.methods
+        //   .closingTime()
+        //   .call();
+        // const cap = await contract.methods.cap().call();
+        // this.dataForCrowdsale.cap = weiToEther(cap);
         const joinedAmount = await contract.methods.joined(this.address).call();
         this.dataForCrowdsale.joinedAmount = weiToEther(joinedAmount);
         this.dataForCrowdsale.isOpen = await contract.methods.isOpen().call();
