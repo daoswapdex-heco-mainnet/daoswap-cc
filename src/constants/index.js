@@ -1,5 +1,5 @@
 export const CrowdsaleForAngelContractAddress =
-  "0x13ccaEFEe7D035cBeD83ffFAdCE0ba1F7a72b50D";
+  "0x51490537eBC745206c947dcDC41B5A9d0094B37b";
 
 export const CrowdsaleForRetailContractAddress =
   "0x363f4750bd1f702849B91d78AF107cDb17954440";

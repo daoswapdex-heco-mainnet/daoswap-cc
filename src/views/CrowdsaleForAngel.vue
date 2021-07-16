@@ -1,6 +1,6 @@
 <template>
   <div class="fill-height">
-    <v-container v-if="connected" class="fill-height">
+    <v-container v-if="web3 && connected" class="fill-height">
       <v-row justify="center">
         <v-col md="6">
           <!-- 认购操作 -->
@@ -148,6 +148,27 @@
         </v-col>
       </v-row>
     </v-container>
+    <v-container v-else>
+      <v-row justify="center">
+        <v-col md="6">
+          <!-- 认购数据显示 -->
+          <v-card justify="center" class="fill-width">
+            <v-card-actions class="justify-center">
+              <!-- 连接钱包 -->
+              <v-btn
+                class="mr-2"
+                v-if="!connected"
+                color="#93B954"
+                block
+                @click="onConnect"
+              >
+                {{ $t("Connect Wallet") }}
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-container>
   </div>
 </template>
 
@@ -196,7 +217,16 @@ export default {
     }
   }),
   created() {
-    this.getCrowdsaleInfo();
+    if (this.web3 && this.connected) {
+      this.getCrowdsaleInfo();
+    }
+  },
+  watch: {
+    web3(web3) {
+      if (web3) {
+        this.getCrowdsaleInfo();
+      }
+    }
   },
   computed: {
     connected() {
@@ -210,6 +240,14 @@ export default {
     }
   },
   methods: {
+    // 连接钱包 OK
+    onConnect() {
+      this.$store.dispatch("web3/connect");
+    },
+    // 断开连接钱包 OK
+    closeWallet() {
+      this.$store.dispatch("web3/closeWallet");
+    },
     // 复制地址
     handleCopy(text, event) {
       clip(text, event);
