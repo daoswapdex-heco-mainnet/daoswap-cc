@@ -98,5 +98,18 @@ export default {
   seconds: "秒",
 
   "Stake not started": "活动未开始",
-  "Stake is closed": "活动已结束"
+  "Stake is closed": "活动已结束",
+
+  "Receive airdrop": "领取空投",
+  "Cannot receive airdrops": "不能领取空投",
+  "Inviter address": "邀请人地址",
+  Receive: "领取",
+  "Please fill in the inviter's address": "请填写邀请人地址",
+  "The inviter's address is wrong": "邀请人地址错误",
+  "Received amount": "已领取金额",
+  "Please enter your mentor's address to open mystery box":
+    "输入极光学院导师的钱包地址，领取盲盒（随机1-10000枚DAO）",
+  "Please enter your mentor's address": "请输入极光学院导师的钱包地址",
+  Open: "打开",
+  "Already received or not qualify": "已领取或不符合领取空投条件"
 };

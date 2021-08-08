@@ -4,6 +4,9 @@ export const CrowdsaleForAngelContractAddress =
 export const CrowdsaleForRetailContractAddress =
   "0x363f4750bd1f702849B91d78AF107cDb17954440";
 
+export const AirdropContractAddress =
+  "0x00A867a24619DD287C866A8B6c83e4ddbd714cC1";
+
 export const DATAddress = "0x738B815eaDD06E0041b52B0C9d4F0d0D277B24bA";
 
 export const DAOAddress = "0xc096332CAacF00319703558988aD03eC6586e704";

@@ -78,6 +78,14 @@
             >{{ $t("Stake") }}</v-tab
           >
           <v-tab
+            to="/airdrop"
+            :ripple="false"
+            class="font-weight-bold"
+            min-width="96"
+            text
+            >{{ $t("Airdrop") }}</v-tab
+          >
+          <v-tab
             to="/Whitepaper.pdf"
             target="_blank"
             :ripple="false"
@@ -101,7 +109,7 @@
       <v-app-bar-nav-icon class="hidden-md-and-up" @click="drawer = !drawer" />
 
       <!-- 多语言切换 -->
-      <!-- <v-menu offset-y>
+      <v-menu offset-y>
         <template v-slot:activator="{ on, attrs }">
           <v-btn text v-bind="attrs" v-on="on">
             <v-icon>mdi-translate</v-icon>
@@ -115,7 +123,7 @@
             ></v-list-item-title>
           </v-list-item>
         </v-list>
-      </v-menu> -->
+      </v-menu>
     </v-app-bar>
 
     <v-navigation-drawer v-model="drawer" absolute temporary>
@@ -129,6 +137,9 @@
           </v-list-item> -->
           <v-list-item to="/stake">
             <v-list-item-title>{{ $t("Stake") }}</v-list-item-title>
+          </v-list-item>
+          <v-list-item to="/airdrop">
+            <v-list-item-title>{{ $t("Airdrop") }}</v-list-item-title>
           </v-list-item>
           <v-list-item to="/Whitepaper.pdf" target="_blank">
             <v-list-item-title>{{ $t("Whitepaper") }}</v-list-item-title>
