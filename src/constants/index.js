@@ -5,7 +5,7 @@ export const CrowdsaleForRetailContractAddress =
   "0x363f4750bd1f702849B91d78AF107cDb17954440";
 
 export const AirdropContractAddress =
-  "0x00A867a24619DD287C866A8B6c83e4ddbd714cC1";
+  "0x88d3Ce648AEA4403211BEcb7727e82bF00Aa1637";
 
 export const DATAddress = "0x738B815eaDD06E0041b52B0C9d4F0d0D277B24bA";
 
