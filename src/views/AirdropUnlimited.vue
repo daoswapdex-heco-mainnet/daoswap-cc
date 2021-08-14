@@ -343,10 +343,14 @@ export default {
             .send({ from: this.address })
             .then(() => {
               this.loading = false;
+              this.refreshCode();
+              this.inputCode = undefined;
               this.getAccountAssets();
             })
             .catch(e => {
               this.loading = false;
+              this.refreshCode();
+              this.inputCode = undefined;
               console.info(e);
             });
         } else {
@@ -354,6 +358,8 @@ export default {
           this.operationResult.snackbar = true;
           this.operationResult.text = "The mentor's address is wrong";
           this.loading = false;
+          this.refreshCode();
+          this.inputCode = undefined;
         }
       }
     },
