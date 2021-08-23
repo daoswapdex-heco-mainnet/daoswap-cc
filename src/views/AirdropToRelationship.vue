@@ -32,9 +32,6 @@
                     </v-card-text>
                   </v-col>
                   <v-col class="display-3" cols="12" v-else>
-                    <!-- <v-card-title>
-                      <span class="headline">{{ $t("Inviter Address") }}</span>
-                    </v-card-title> -->
                     <v-card-text>
                       <v-row align="center">
                         <v-col class="display-3" cols="12">
@@ -258,14 +255,6 @@ export default {
           .call();
         if (hasAirdropList) {
           this.accountAssets.isInvited = true;
-          // const inviteInfo = await contract.methods
-          //   .airdropList(this.address)
-          //   .call();
-          // this.accountAssets.inviterToken = inviteInfo.inviterToken;
-          // this.accountAssets.airdropAmount = weiToEther(
-          //   inviteInfo.airdropAmount,
-          //   this.web3
-          // );
         } else {
           this.accountAssets.isInvited = false;
         }
