@@ -184,6 +184,11 @@ export default {
       if (web3) {
         this.getAccountAssets();
       }
+    },
+    address(address) {
+      if (address) {
+        this.getAccountAssets();
+      }
     }
   },
   computed: {
