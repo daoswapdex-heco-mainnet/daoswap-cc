@@ -226,6 +226,11 @@ export default {
       if (web3) {
         this.getCrowdsaleInfo();
       }
+    },
+    address(address) {
+      if (address) {
+        this.getCrowdsaleInfo();
+      }
     }
   },
   computed: {

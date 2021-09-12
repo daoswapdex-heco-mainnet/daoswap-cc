@@ -6,6 +6,7 @@
           <!-- 领取操作 -->
           <v-card class="fill-width">
             <v-card outlined>
+              <!-- 标题 -->
               <v-card-title>
                 <v-avatar size="24" class="mr-2">
                   <img :src="require('@/assets/logo.png')" alt="DAO" />
@@ -19,25 +20,9 @@
                 <!-- 可领取 -->
                 <v-row
                   align="center"
-                  v-if="
-                    accountAssets.airdropAmount <= 0 &&
-                      accountAssets.enableAirdrop
-                  "
+                  v-if="!accountAssets.isClaim && accountAssets.enableAirdrop"
                 >
                   <v-col class="display-3" cols="12">
-                    <v-card-title>
-                      <span class="headline">{{ $t("Amount") }}</span>
-                    </v-card-title>
-                    <v-card-text>
-                      <v-row align="center">
-                        <v-col class="display-3" cols="12">
-                          {{ accountAssets.actualAirdropAmount }}
-                          <span class="display-1">
-                            DAO
-                          </span>
-                        </v-col>
-                      </v-row>
-                    </v-card-text>
                     <v-card-actions class="justify-center">
                       <v-btn
                         large
@@ -55,8 +40,7 @@
                 <v-row
                   align="center"
                   v-else-if="
-                    accountAssets.airdropAmount > 0 &&
-                      accountAssets.enableAirdrop
+                    accountAssets.isClaim && !accountAssets.enableAirdrop
                   "
                 >
                   <v-col class="display-3" cols="12">
@@ -156,20 +140,24 @@
 
 <script>
 import clip from "@/utils/clipboard";
-import { AirdropForStakeContractAddress } from "@/constants";
+import { AirdropForHoldDAOContractAddress } from "@/constants";
 import { getContract, weiToEther } from "@/utils/web3";
+import { client } from "@/apollo/client";
+import { USER_TRANSACTIONS } from "@/apollo/queries";
+import { formattedNum } from "@/filters/web3";
 // 引入合约 ABI 文件
-import AirdropForStake from "@/constants/contractJson/AirdropForStake.json";
+import AirdropForHoldDAO from "@/constants/contractJson/AirdropForHoldDAO.json";
 
 export default {
-  name: "AirdropForStake",
+  name: "AirdropForHoldDAO",
   data: () => ({
     loading: false,
     // 当前账户相关信息
     accountAssets: {
-      actualAirdropAmount: 0, // 可领取DAO金额
-      airdropAmount: 0, // 已领取DAO金额
-      enableAirdrop: false
+      isClaim: false, // 是否已经领取空投
+      enableAirdrop: false, // 是否可以领取空投
+      swappedAmount: 0, // 交易金额
+      airdropAmount: 0 // 已领取DAO金额
     },
     // 提示框
     operationResult: {
@@ -230,29 +218,55 @@ export default {
       try {
         const web3 = await this.web3;
         const contract = getContract(
-          AirdropForStake,
-          AirdropForStakeContractAddress,
+          AirdropForHoldDAO,
+          AirdropForHoldDAOContractAddress,
           web3
         );
-        // 查询是否可以领取空投
-        this.accountAssets.enableAirdrop = await contract.methods
-          .checkDatStake(this.address)
+        // 查询账号余额
+        const checkBalance = await contract.methods
+          .checkDAOBalance(this.address)
           .call();
-        if (this.accountAssets.enableAirdrop) {
-          // 获取可领取DAO金额
-          const actualAirdropAmount = await contract.methods
-            .getActualAirdropAmount(this.address)
+        if (checkBalance) {
+          // 查询是否可以领取空投
+          const airdropInfo = await contract.methods
+            .airdropList(this.address)
             .call();
-          this.accountAssets.actualAirdropAmount = weiToEther(
-            actualAirdropAmount,
-            web3
-          );
+          if (airdropInfo.isClaim) {
+            this.accountAssets.isClaim = true;
+            this.accountAssets.enableAirdrop = false;
+            this.accountAssets.airdropAmount = weiToEther(
+              airdropInfo.airdropAmount,
+              this.web3
+            );
+          } else {
+            // 查询交易量
+            const swappedResult = await client.query({
+              query: USER_TRANSACTIONS,
+              variables: {
+                user: this.address
+              },
+              fetchPolicy: "no-cache"
+            });
+            let tempSwappedAmount = 0;
+            if (swappedResult?.data) {
+              tempSwappedAmount = swappedResult.data?.swaps
+                ? swappedResult.data?.swaps.reduce((total, swap) => {
+                    return total + parseFloat(swap.amountUSD);
+                  }, 0)
+                : 0;
+            }
+            this.accountAssets.swappedAmount = formattedNum(tempSwappedAmount);
+            if (this.accountAssets.swappedAmount > 0) {
+              // 查询是否可以领取空投
+              const minSwappedAmount = await contract.methods
+                .minDAOSwappedAmount()
+                .call();
+              if (this.accountAssets.swappedAmount >= minSwappedAmount) {
+                this.accountAssets.enableAirdrop = true;
+              }
+            }
+          }
         }
-        // 获取已领取DAO空投金额
-        const airdropAmount = await contract.methods
-          .airdropAmount(this.address)
-          .call();
-        this.accountAssets.airdropAmount = weiToEther(airdropAmount, web3);
       } catch (error) {
         console.info(error);
       }
@@ -262,8 +276,12 @@ export default {
     handleReceiveAirdrop() {
       this.loading = true;
       // 执行合约
-      getContract(AirdropForStake, AirdropForStakeContractAddress, this.web3)
-        .methods.receiveAirdrop()
+      getContract(
+        AirdropForHoldDAO,
+        AirdropForHoldDAOContractAddress,
+        this.web3
+      )
+        .methods.receiveAirdrop(Math.round(this.accountAssets.swappedAmount))
         .send({ from: this.address })
         .then(() => {
           this.loading = false;
