@@ -42,22 +42,14 @@
             text
             >{{ $t("Stake") }}</v-tab
           >
-          <!-- <v-tab
+          <v-tab
             to="/airdrop"
             :ripple="false"
             class="font-weight-bold"
             min-width="96"
             text
             >{{ $t("Airdrop") }}</v-tab
-          > -->
-          <!-- <v-tab
-            to="/airdrop-holder"
-            :ripple="false"
-            class="font-weight-bold"
-            min-width="96"
-            text
-            >{{ $t("AirdropHolder") }}</v-tab
-          > -->
+          >
           <v-tab
             to="/invite"
             :ripple="false"
@@ -107,12 +99,9 @@
           <v-list-item to="/stake">
             <v-list-item-title>{{ $t("Stake") }}</v-list-item-title>
           </v-list-item>
-          <!-- <v-list-item to="/airdrop">
+          <v-list-item to="/airdrop">
             <v-list-item-title>{{ $t("Airdrop") }}</v-list-item-title>
-          </v-list-item> -->
-          <!-- <v-list-item to="/airdrop-holder">
-            <v-list-item-title>{{ $t("AirdropHolder") }}</v-list-item-title>
-          </v-list-item> -->
+          </v-list-item>
           <v-list-item to="/invite">
             <v-list-item-title>{{ $t("Invite") }}</v-list-item-title>
           </v-list-item>
@@ -126,6 +115,8 @@
 </template>
 
 <script>
+import { WHITE_LISTS_SWITCH, WHITE_LISTS } from "@/constants";
+
 export default {
   name: "HomeAppBar",
 
@@ -146,6 +137,14 @@ export default {
     group: null,
     items: ["Home", "Pro"]
   }),
+  computed: {
+    address() {
+      return this.$store.state.web3.address;
+    },
+    isInWhiteList() {
+      return WHITE_LISTS_SWITCH && WHITE_LISTS.indexOf(this.address) > -1;
+    }
+  },
   methods: {
     changeLang(locale) {
       this.$i18n.locale = locale;

@@ -144,7 +144,6 @@ import { AirdropForHoldDAOContractAddress } from "@/constants";
 import { getContract, weiToEther } from "@/utils/web3";
 import { client } from "@/apollo/client";
 import { USER_TRANSACTIONS } from "@/apollo/queries";
-import { formattedNum } from "@/filters/web3";
 // 引入合约 ABI 文件
 import AirdropForHoldDAO from "@/constants/contractJson/AirdropForHoldDAO.json";
 
@@ -222,23 +221,23 @@ export default {
           AirdropForHoldDAOContractAddress,
           web3
         );
-        // 查询账号余额
-        const checkBalance = await contract.methods
-          .checkDAOBalance(this.address)
+        // 查询是否可以领取空投
+        const airdropInfo = await contract.methods
+          .airdropList(this.address)
           .call();
-        if (checkBalance) {
-          // 查询是否可以领取空投
-          const airdropInfo = await contract.methods
-            .airdropList(this.address)
+        if (airdropInfo.isClaim) {
+          this.accountAssets.isClaim = true;
+          this.accountAssets.enableAirdrop = false;
+          this.accountAssets.airdropAmount = weiToEther(
+            airdropInfo.airdropAmount,
+            this.web3
+          );
+        } else {
+          // 查询账号余额
+          const checkBalance = await contract.methods
+            .checkDAOBalance(this.address)
             .call();
-          if (airdropInfo.isClaim) {
-            this.accountAssets.isClaim = true;
-            this.accountAssets.enableAirdrop = false;
-            this.accountAssets.airdropAmount = weiToEther(
-              airdropInfo.airdropAmount,
-              this.web3
-            );
-          } else {
+          if (checkBalance) {
             // 查询交易量
             const swappedResult = await client.query({
               query: USER_TRANSACTIONS,
@@ -255,7 +254,7 @@ export default {
                   }, 0)
                 : 0;
             }
-            this.accountAssets.swappedAmount = formattedNum(tempSwappedAmount);
+            this.accountAssets.swappedAmount = Math.round(tempSwappedAmount);
             if (this.accountAssets.swappedAmount > 0) {
               // 查询是否可以领取空投
               const minSwappedAmount = await contract.methods
