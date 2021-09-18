@@ -136,5 +136,7 @@ export default {
   Amount: "Amount",
 
   AirdropHolder: "AirdropHolder",
-  "Receive Success": "Receive Success"
+  "Receive Success": "Receive Success",
+
+  "coming soon": "coming soon"
 };

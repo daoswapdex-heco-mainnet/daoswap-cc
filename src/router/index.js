@@ -3,7 +3,7 @@ import VueRouter from "vue-router";
 import CrowdsaleForAngel from "../views/CrowdsaleForAngel.vue";
 import CrowdsaleForRetail from "../views/CrowdsaleForRetail.vue";
 import AirdropToRelationship from "../views/AirdropToRelationship.vue";
-import AirdropForHoldDAO from "../views/AirdropForHoldDAO.vue";
+import AirdropEnd from "../views/AirdropEnd.vue";
 
 Vue.use(VueRouter);
 
@@ -30,7 +30,7 @@ const routes = [
       {
         path: "/airdrop",
         name: "Airdrop",
-        component: AirdropForHoldDAO
+        component: AirdropEnd
       },
       {
         path: "/invite",

@@ -132,5 +132,7 @@ export default {
   Amount: "数量",
 
   AirdropHolder: "持币空投",
-  "Receive Success": "领取成功"
+  "Receive Success": "领取成功",
+
+  "coming soon": "空投已结束，请期待下一期！"
 };
