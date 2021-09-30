@@ -16,11 +16,11 @@
                 <v-col class="body-1" cols="12">
                   <p>
                     {{ $t("OpeningTime") }}：
-                    {{ 1625407200 | parseTime("{y}-{m}-{d} {h}:{i}:{s}") }}
+                    {{ 1633015800 | parseTime("{y}-{m}-{d} {h}:{i}:{s}") }}
                   </p>
                   <p>
                     {{ $t("ClosingTime") }}：
-                    {{ 1625407500 | parseTime("{y}-{m}-{d} {h}:{i}:{s}") }}
+                    {{ 1640878200 | parseTime("{y}-{m}-{d} {h}:{i}:{s}") }}
                   </p>
                   <p>{{ $t("Price") }}：0.5 USDT</p>
                 </v-col>
@@ -49,7 +49,7 @@
               </v-row>
             </v-card-text> -->
             <!-- 倒计时时间大于0并且未真正开始,显示开始倒计时信息 -->
-            <!-- <v-card-text
+            <v-card-text
               justify="center"
               v-if="
                 dataForCrowdsale.openingTime > currentTime &&
@@ -65,9 +65,9 @@
                   </p>
                 </v-col>
               </v-row>
-            </v-card-text> -->
+            </v-card-text>
             <!-- 倒计时时间大于0并且真正开始,显示结束倒计时信息 -->
-            <!-- <v-card-text
+            <v-card-text
               justify="center"
               v-if="
                 dataForCrowdsale.openingTime > currentTime &&
@@ -83,7 +83,7 @@
                   </p>
                 </v-col>
               </v-row>
-            </v-card-text> -->
+            </v-card-text>
           </v-card>
           <!-- 认购操作 -->
           <v-card class="fill-width mt-10">
@@ -251,6 +251,28 @@
               </v-card-actions>
             </v-card>
           </v-card>
+          <!-- 活动历史 -->
+          <v-card justify="center" class="fill-width mt-10">
+            <v-card-title>
+              <span class="title font-weight-light">
+                {{ $t("Stake History") }}
+              </span>
+            </v-card-title>
+            <v-divider></v-divider>
+            <v-card-text>
+              <v-card-actions class="justify-center">
+                <v-btn
+                  large
+                  width="80%"
+                  outlined
+                  color="#93B954"
+                  @click="gotoHistory"
+                >
+                  {{ $t("First stake") }}
+                </v-btn>
+              </v-card-actions>
+            </v-card-text>
+          </v-card>
           <!-- 当前钱包账号 -->
           <v-card justify="center" class="fill-width mt-10">
             <v-card-title>
@@ -342,7 +364,7 @@
 <script>
 import clip from "@/utils/clipboard";
 import {
-  CrowdsaleForRetailContractAddress,
+  CrowdsaleForRetailContractAddress2,
   DATAddress,
   DAOAddress,
   ZeroAddress
@@ -355,7 +377,7 @@ import ERC20DAO from "@/constants/contractJson/ERC20DAO.json";
 import TokenVestingRetail from "@/constants/contractJson/TokenVestingRetail.json";
 
 export default {
-  name: "CrowdsaleForRetail",
+  name: "CrowdsaleForRetail2",
   data: () => ({
     loading: false,
     DATAddress,
@@ -470,7 +492,7 @@ export default {
         const web3 = await this.web3;
         const contract = getContract(
           CrowdsaleForRetail,
-          CrowdsaleForRetailContractAddress,
+          CrowdsaleForRetailContractAddress2,
           web3
         );
         const joinedAmount = await contract.methods.joined(this.address).call();
@@ -500,11 +522,7 @@ export default {
         this.loading = true;
         try {
           // 获取分期释放合约余额
-          const contractERC20 = await getContract(
-            ERC20DAO,
-            DAOAddress,
-            this.web3
-          );
+          const contractERC20 = await getContract(ERC20DAO, DAOAddress, web3);
           this.dataForTokenVesting.tokenSymbol = await contractERC20.methods
             .symbol()
             .call();
@@ -516,7 +534,7 @@ export default {
           const contract = await getContract(
             TokenVestingRetail,
             this.dataForCrowdsale.tokenVestingAddress,
-            this.web3
+            web3
           );
           this.dataForTokenVesting.beneficiary = await contract.methods
             .beneficiary()
@@ -552,7 +570,7 @@ export default {
           .symbol()
           .call();
         const allowance = await contract.methods
-          .allowance(this.address, CrowdsaleForRetailContractAddress)
+          .allowance(this.address, CrowdsaleForRetailContractAddress2)
           .call();
         const balance = await contract.methods.balanceOf(this.address).call();
         this.accountAssets.allowanceAmount = weiToEther(allowance, web3);
@@ -570,7 +588,7 @@ export default {
       // 执行合约
       getContract(ERC20DAT, DATAddress, this.web3)
         .methods.approve(
-          CrowdsaleForRetailContractAddress,
+          CrowdsaleForRetailContractAddress2,
           etherToWei(this.accountAssets.balance, this.web3)
         )
         .send({ from: this.address })
@@ -591,7 +609,7 @@ export default {
       // 执行合约
       getContract(
         CrowdsaleForRetail,
-        CrowdsaleForRetailContractAddress,
+        CrowdsaleForRetailContractAddress2,
         this.web3
       )
         .methods.buyTokens(this.accountAssets.balance)
@@ -628,6 +646,10 @@ export default {
           this.loading = false;
           console.info(e);
         });
+    },
+    // 跳转历史记录
+    gotoHistory() {
+      this.$router.push({ path: "/stake/period-1" });
     }
   }
 };

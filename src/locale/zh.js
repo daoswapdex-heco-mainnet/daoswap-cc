@@ -134,5 +134,10 @@ export default {
   AirdropHolder: "持币空投",
   "Receive Success": "领取成功",
 
-  "coming soon": "空投已结束，请期待下一期！"
+  "coming soon": "空投已结束，请期待下一期！",
+
+  "First stake period is ended, please wait for second period.":
+    "第一阶段质押DAT已经结束了。第二阶段近期就重新开始。各位的DAT仍有效，请耐心等待第二阶段开启后再质押。",
+  "Stake History": "活动历史",
+  "First stake": "第一期"
 };

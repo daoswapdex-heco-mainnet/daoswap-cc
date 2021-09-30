@@ -138,5 +138,10 @@ export default {
   AirdropHolder: "AirdropHolder",
   "Receive Success": "Receive Success",
 
-  "coming soon": "coming soon"
+  "coming soon": "coming soon",
+
+  "First stake period is ended, please wait for second period.":
+    "First stake period is ended, please wait for second period.",
+  "Stake History": "Stake History",
+  "First stake": "Phase 1"
 };

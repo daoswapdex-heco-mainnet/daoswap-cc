@@ -4,6 +4,9 @@ export const CrowdsaleForAngelContractAddress =
 export const CrowdsaleForRetailContractAddress =
   "0x363f4750bd1f702849B91d78AF107cDb17954440";
 
+export const CrowdsaleForRetailContractAddress2 =
+  "0x8872334365631F961fC04b0E9B14F186FE375F69";
+
 export const AirdropContractAddress =
   "0x88d3Ce648AEA4403211BEcb7727e82bF00Aa1637";
 
