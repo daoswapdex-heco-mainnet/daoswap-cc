@@ -1,3 +1,4 @@
+/********** Crowdsale Contract **********/
 export const CrowdsaleForAngelContractAddress =
   "0x51490537eBC745206c947dcDC41B5A9d0094B37b";
 
@@ -7,6 +8,7 @@ export const CrowdsaleForRetailContractAddress =
 export const CrowdsaleForRetailContractAddress2 =
   "0x8872334365631F961fC04b0E9B14F186FE375F69";
 
+/********** Airdrop Contract **********/
 export const AirdropContractAddress =
   "0x88d3Ce648AEA4403211BEcb7727e82bF00Aa1637";
 
@@ -16,12 +18,16 @@ export const AirdropUnlimitedContractAddress =
 export const AirdropToRelationshipContractAddress =
   "0x1775f56Cff92281ca6aFE6bF087cE3fbd86EC1ae";
 
+export const AirdropToRelationshipContractAddress2 =
+  "0x345015F4E0E8390B154466eFfE75B250e7F30E33";
+
 export const AirdropForStakeContractAddress =
   "0x783e3fD61e200fDc615164C2003DB4ce143c8E20";
 
 export const AirdropForHoldDAOContractAddress =
   "0xd825DffB18f87a91732d1aCcC6c53345B4C4D412";
 
+/********** base **********/
 export const DATAddress = "0x738B815eaDD06E0041b52B0C9d4F0d0D277B24bA";
 
 export const DAOAddress = "0xc096332CAacF00319703558988aD03eC6586e704";

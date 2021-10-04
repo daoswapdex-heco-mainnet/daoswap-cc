@@ -139,7 +139,10 @@
 import { validationMixin } from "vuelidate";
 import { required } from "vuelidate/lib/validators";
 import clip from "@/utils/clipboard";
-import { AirdropToRelationshipContractAddress } from "@/constants";
+import {
+  AirdropToRelationshipContractAddress,
+  AirdropToRelationshipContractAddress2
+} from "@/constants";
 import {
   getContract,
   checkAddressChecksum,
@@ -261,7 +264,19 @@ export default {
         if (hasAirdropList) {
           this.accountAssets.isInvited = true;
         } else {
-          this.accountAssets.isInvited = false;
+          const contract2 = getContract(
+            AirdropToRelationship,
+            AirdropToRelationshipContractAddress2,
+            this.web3
+          );
+          const hasAirdropList2 = await contract2.methods
+            .hasAirdropList(this.address)
+            .call();
+          if (hasAirdropList2) {
+            this.accountAssets.isInvited = true;
+          } else {
+            this.accountAssets.isInvited = false;
+          }
         }
       } catch (error) {
         console.info(error);
@@ -294,12 +309,8 @@ export default {
           .call();
         if (checkDatBalance || checkDatStake) {
           // 执行合约
-          getContract(
-            AirdropToRelationship,
-            AirdropToRelationshipContractAddress,
-            this.web3
-          )
-            .methods.receiveAirdrop(toChecksumAddress(this.inviterAccount))
+          contract.methods
+            .receiveAirdrop(toChecksumAddress(this.inviterAccount))
             .send({ from: this.address })
             .then(() => {
               this.loading = false;
@@ -310,10 +321,39 @@ export default {
               console.info(e);
             });
         } else {
-          this.operationResult.color = "error";
-          this.operationResult.snackbar = true;
-          this.operationResult.text = "The mentor's address is wrong";
-          this.loading = false;
+          // 查询第2期结果
+          const contract2 = getContract(
+            AirdropToRelationship,
+            AirdropToRelationshipContractAddress2,
+            this.web3
+          );
+          // check account checkDatBalance
+          const checkDatBalance2 = await contract2.methods
+            .checkDatBalance(toChecksumAddress(this.inviterAccount))
+            .call();
+          // check account checkDatStake
+          const checkDatStake2 = await contract2.methods
+            .checkDatStake(toChecksumAddress(this.inviterAccount))
+            .call();
+          if (checkDatBalance2 || checkDatStake2) {
+            // 执行合约
+            contract2.methods
+              .receiveAirdrop(toChecksumAddress(this.inviterAccount))
+              .send({ from: this.address })
+              .then(() => {
+                this.loading = false;
+                this.getAccountAssets();
+              })
+              .catch(e => {
+                this.loading = false;
+                console.info(e);
+              });
+          } else {
+            this.operationResult.color = "error";
+            this.operationResult.snackbar = true;
+            this.operationResult.text = "The mentor's address is wrong";
+            this.loading = false;
+          }
         }
       }
     }

@@ -1,10 +1,10 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import CrowdsaleForRetail from "../views/CrowdsaleForRetail.vue";
-import CrowdsaleForRetail2 from "../views/CrowdsaleForRetail2.vue";
-import CrowdsaleForRetailEnd from "../views/CrowdsaleForRetailEnd.vue";
-import AirdropToRelationship from "../views/AirdropToRelationship.vue";
-import AirdropEnd from "../views/AirdropEnd.vue";
+import CrowdsaleForRetail from "../views/crowdsale/CrowdsaleForRetail.vue";
+import CrowdsaleForRetail2 from "../views/crowdsale/CrowdsaleForRetail2.vue";
+import CrowdsaleForRetailEnd from "../views/crowdsale/CrowdsaleForRetailEnd.vue";
+import AirdropToRelationship from "../views/airdrop/AirdropToRelationship.vue";
+import AirdropEnd from "../views/airdrop/AirdropEnd.vue";
 
 Vue.use(VueRouter);
 
