@@ -3,22 +3,49 @@
     <v-container v-if="web3 && connected" class="fill-height">
       <v-row justify="center">
         <v-col md="6">
+          <!-- 领取操作 -->
           <v-card class="fill-width">
             <v-card outlined>
+              <!-- 标题 -->
               <v-card-title>
                 <v-avatar size="24" class="mr-2">
                   <img :src="require('@/assets/logo.png')" alt="DAO" />
                 </v-avatar>
                 <span class="title font-weight-light">
-                  {{ $t("Invite") }}
+                  {{ $t("Airdrop") }}
                 </span>
               </v-card-title>
               <v-divider></v-divider>
               <v-card-text>
-                <v-row align="center" v-if="accountAssets.isInvited">
-                  <v-col class="display-3" cols="12" v-if="isTransfer">
+                <!-- 可领取 -->
+                <v-row
+                  align="center"
+                  v-if="!accountAssets.isClaim && accountAssets.enableAirdrop"
+                >
+                  <v-col class="display-3" cols="12">
+                    <v-card-actions class="justify-center">
+                      <v-btn
+                        large
+                        color="#93B954"
+                        dark
+                        width="80%"
+                        @click="handleReceiveAirdrop()"
+                      >
+                        {{ $t("Claim") }}
+                      </v-btn>
+                    </v-card-actions>
+                  </v-col>
+                </v-row>
+                <!-- 已经领取 -->
+                <v-row
+                  align="center"
+                  v-else-if="
+                    accountAssets.isClaim && !accountAssets.enableAirdrop
+                  "
+                >
+                  <v-col class="display-3" cols="12">
                     <v-card-title>
-                      <span class="headline">{{ $t("Received amount") }}</span>
+                      <span class="headline">{{ $t("Amount") }}</span>
                     </v-card-title>
                     <v-card-text>
                       <v-row align="center">
@@ -31,49 +58,23 @@
                       </v-row>
                     </v-card-text>
                   </v-col>
-                  <v-col class="display-3" cols="12" v-else>
+                </v-row>
+                <!-- 不能领取 -->
+                <v-row align="center" v-else>
+                  <v-col class="subtitle-1" cols="12">
                     <v-card-text>
                       <v-row align="center">
-                        <v-col class="display-3" cols="12">
-                          {{ $t("You have accepted the invitation") }}
+                        <v-col class="subtitle-1" cols="12">
+                          {{ $t("You can't claim the airdrop") }}
                         </v-col>
                       </v-row>
                     </v-card-text>
                   </v-col>
                 </v-row>
-                <form v-else>
-                  <v-card-title>
-                    <span class="headline">{{
-                      $t("Please enter your mentor's address")
-                    }}</span>
-                  </v-card-title>
-                  <v-card-text>
-                    <v-text-field
-                      :label="$t('Mentor\'s address')"
-                      v-model="inviterAccount"
-                      :error-messages="inviterAccountErrors"
-                      required
-                      @input="$v.inviterAccount.$touch()"
-                      @blur="$v.inviterAccount.$touch()"
-                      :autofocus="inviterAccountFocus"
-                    ></v-text-field>
-                  </v-card-text>
-                  <v-card-actions class="justify-center">
-                    <v-btn
-                      large
-                      color="#93B954"
-                      dark
-                      width="80%"
-                      :disabled="!submitLoading"
-                      @click="submit"
-                    >
-                      {{ $t("Accept") }}
-                    </v-btn>
-                  </v-card-actions>
-                </form>
               </v-card-text>
             </v-card>
           </v-card>
+          <!-- 当前钱包账号 -->
           <v-card justify="center" class="fill-width mt-10">
             <v-card-title>
               <span class="title font-weight-light">
@@ -96,6 +97,7 @@
               </v-row>
             </v-card-text>
           </v-card>
+          <!-- 遮罩层 -->
           <v-overlay z-index="9999" opacity="0.7" :value="loading">
             <v-progress-circular indeterminate size="64"></v-progress-circular>
           </v-overlay>
@@ -115,6 +117,7 @@
     <v-container v-else>
       <v-row justify="center">
         <v-col md="6">
+          <!-- 认购数据显示 -->
           <v-card justify="center" class="fill-width">
             <v-card-actions class="justify-center">
               <!-- 连接钱包 -->
@@ -136,34 +139,24 @@
 </template>
 
 <script>
-import { validationMixin } from "vuelidate";
-import { required } from "vuelidate/lib/validators";
 import clip from "@/utils/clipboard";
-import { AirdropToRelationshipContractAddress2 } from "@/constants";
 import {
-  getContract,
-  checkAddressChecksum,
-  toChecksumAddress
-} from "@/utils/web3";
+  AirdropForSwapsSnapshotContractAddress,
+  ZeroAddress
+} from "@/constants";
+import { getContract, weiToEther } from "@/utils/web3";
 // 引入合约 ABI 文件
-import AirdropToRelationship from "@/constants/contractJson/AirdropToRelationship.json";
+import AirdropForSwapsSnapshot from "@/constants/contractJson/AirdropForSwapsSnapshot.json";
 
 export default {
-  name: "AirdropToRelationship",
-  mixins: [validationMixin],
-  validations: {
-    inviterAccount: { required }
-  },
+  name: "AirdropForSwapsSnapshot",
   data: () => ({
     loading: false,
-    inviterAccountFocus: true,
-    inviterAccount: undefined,
     // 当前账户相关信息
     accountAssets: {
-      isTransfer: false,
-      isInvited: false,
-      inviterToken: null,
-      airdropAmount: 0
+      isClaim: false, // 是否已经领取空投
+      enableAirdrop: false, // 是否可以领取空投
+      airdropAmount: 0 // 已领取DAO金额
     },
     // 提示框
     operationResult: {
@@ -200,33 +193,6 @@ export default {
     },
     address() {
       return this.$store.state.web3.address;
-    },
-    inviterAccountErrors() {
-      const errors = [];
-      if (!this.$v.inviterAccount.$dirty) return errors;
-      !this.$v.inviterAccount.required &&
-        errors.push(this.$t("Please enter your mentor's address"));
-
-      try {
-        if (checkAddressChecksum(this.$v.inviterAccount.$model)) {
-          if (
-            toChecksumAddress(this.$v.inviterAccount.$model) == this.address
-          ) {
-            errors.push(this.$t("The inviter's account cannot be yourself"));
-            return errors;
-          }
-          return errors;
-        } else {
-          errors.push(this.$t("The mentor's address is wrong"));
-        }
-      } catch (e) {
-        errors.push(this.$t("The mentor's address is wrong"));
-      }
-
-      return errors;
-    },
-    submitLoading() {
-      return this.inviterAccount && this.inviterAccountErrors.length <= 0;
     }
   },
   methods: {
@@ -249,19 +215,27 @@ export default {
     async getAccountAssets() {
       this.loading = true;
       try {
-        // 查询白名单、空投列表
-        const contract2 = getContract(
-          AirdropToRelationship,
-          AirdropToRelationshipContractAddress2,
-          this.web3
+        const web3 = await this.web3;
+        const contract = getContract(
+          AirdropForSwapsSnapshot,
+          AirdropForSwapsSnapshotContractAddress,
+          web3
         );
-        const hasAirdropList2 = await contract2.methods
-          .hasAirdropList(this.address)
+        // 查询空投信息
+        const airdropInfo = await contract.methods
+          .airdropList(this.address)
           .call();
-        if (hasAirdropList2) {
-          this.accountAssets.isInvited = true;
+        if (airdropInfo.token != ZeroAddress) {
+          this.accountAssets.airdropAmount = weiToEther(
+            airdropInfo.airdropAmount,
+            this.web3
+          );
+          this.accountAssets.isClaim = airdropInfo.isClaim;
+          this.accountAssets.enableAirdrop = !this.accountAssets.isClaim;
         } else {
-          this.accountAssets.isInvited = false;
+          this.accountAssets.enableAirdrop = false;
+          this.accountAssets.isClaim = false;
+          this.accountAssets.airdropAmount = 0;
         }
       } catch (error) {
         console.info(error);
@@ -269,48 +243,27 @@ export default {
       this.loading = false;
     },
     // 领取空投
-    async submit() {
-      if (this.$v.$invalid) {
-        // error info
-        if (this.$v.inviterAccount.$invalid) {
-          this.inviterAccountFocus = true;
-        }
-        this.$v.$touch();
-      } else {
-        this.$v.$touch();
-        this.loading = true;
-        // 查询第2期结果
-        const contract2 = getContract(
-          AirdropToRelationship,
-          AirdropToRelationshipContractAddress2,
-          this.web3
-        );
-        // 执行合约
-        contract2.methods
-          .receiveAirdrop(toChecksumAddress(this.inviterAccount))
-          .send({ from: this.address })
-          .then(() => {
-            this.loading = false;
-            this.getAccountAssets();
-          })
-          .catch(e => {
-            this.loading = false;
-            console.info(e);
-          });
-      }
+    handleReceiveAirdrop() {
+      this.loading = true;
+      // 执行合约
+      getContract(
+        AirdropForSwapsSnapshot,
+        AirdropForSwapsSnapshotContractAddress,
+        this.web3
+      )
+        .methods.receiveAirdrop()
+        .send({ from: this.address })
+        .then(() => {
+          this.loading = false;
+          this.operationResult.snackbar = true;
+          this.operationResult.text = "Receive Success";
+          this.getAccountAssets();
+        })
+        .catch(e => {
+          this.loading = false;
+          console.info(e);
+        });
     }
   }
 };
 </script>
-
-<style lang="sass">
-.theme--dark.v-btn.v-btn--disabled.v-btn--has-bg
-  background-color: rgb(147, 185, 84) !important
-  border-color: rgb(147, 185, 84) !important
-  opacity: 0.5 !important
-
-.v-btn--disabled
-  background-color: rgb(147, 185, 84)
-  border-color: rgb(147, 185, 84)
-  opacity: 0.5
-</style>

@@ -27,6 +27,9 @@ export const AirdropForStakeContractAddress =
 export const AirdropForHoldDAOContractAddress =
   "0xd825DffB18f87a91732d1aCcC6c53345B4C4D412";
 
+export const AirdropForSwapsSnapshotContractAddress =
+  "0xDCC1eD5631C1d49FF96393ca3584A34E92c98500";
+
 /********** base **********/
 export const DATAddress = "0x738B815eaDD06E0041b52B0C9d4F0d0D277B24bA";
 

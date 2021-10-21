@@ -4,7 +4,8 @@ import CrowdsaleForRetail from "../views/crowdsale/CrowdsaleForRetail.vue";
 import CrowdsaleForRetail2 from "../views/crowdsale/CrowdsaleForRetail2.vue";
 import CrowdsaleForRetailEnd from "../views/crowdsale/CrowdsaleForRetailEnd.vue";
 import AirdropToRelationship from "../views/airdrop/AirdropToRelationship.vue";
-import AirdropEnd from "../views/airdrop/AirdropEnd.vue";
+import AirdropForSwapsSnapshot from "../views/airdrop/AirdropForSwapsSnapshot.vue";
+// import AirdropEnd from "../views/airdrop/AirdropEnd.vue";
 
 Vue.use(VueRouter);
 
@@ -44,7 +45,7 @@ const routes = [
       {
         path: "/airdrop",
         name: "Airdrop",
-        component: AirdropEnd
+        component: AirdropForSwapsSnapshot
       },
       {
         path: "/invite",
