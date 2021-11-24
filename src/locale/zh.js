@@ -139,5 +139,71 @@ export default {
   "First stake period is ended, please wait for second period.":
     "第一阶段质押DAT已经结束了。第二阶段近期就重新开始。各位的DAT仍有效，请耐心等待第二阶段开启后再质押。",
   "Stake History": "活动历史",
-  "First stake": "第一期"
+  "First stake": "第一期",
+
+  CHN: "CHN",
+  "Current forging to be released": "当前锻造待释放",
+  "Hash power node (NH) status": "算力节点(NH)状态",
+  "Forging event has ended": "锻造活动已结束",
+  Node: {
+    None: "无",
+    "Planet node": "行星节点",
+    "Stellar node": "恒星节点"
+  },
+  "Choose a forging pool": "选择锻造矿池",
+  "Enter the forging amount": "输入锻造额度",
+  "At least": "最少",
+  BurnForging: "锻造",
+  BurnForgingForm: {
+    "BurnForging Amount": "锻造额度",
+    "The amount exceeds the balance": "金额超过可账户余额",
+    "The amount exceeds the max forgeable amount": "金额超过最大可锻造额度",
+    "The amount is be gt zero": "锻造额度必须大于0",
+    "Invalid amount": "不可用的数值",
+    "The amount is required": "请填写锻造额度",
+    "The amount does not meet the requirements": "锻造额度不符合要求",
+    "Invalid duration": "不可用的周期",
+    "The duration is required": "请选择周期"
+  },
+  Rate: "比例",
+  Available: "可得",
+  "Forging Success": "锻造成功",
+  "Forging History": "查看锻造记录",
+  "Forging Amount": "锻造数量",
+  "Receive Amount": "得到数量",
+  "CHN Duration": "矿池周期",
+  "Releasable Amount": "待释放",
+  "Released Amount": "已释放",
+  Operation: "操作",
+
+  "Hash Mining": "算力挖矿",
+  "Competition Mining": "竞争挖矿",
+  "Power Duration": "周期",
+  "Power Column Power": "算力",
+  "Claimable Amount": "可提取",
+  "Claimabled Amount": "已提取",
+  "Power Column AnnualizedRate": "年化率",
+  "Whole network/node computing power": "全网/节点算力",
+  "Status/Number of LPs": "状态/LP数量",
+  "Power All Hash": "全网算力",
+  "Power Node Proportion": "节点占比",
+  "Power Node Hash Value": "节点算力价值",
+  "Power Node Status": "节点状态",
+  "Power DAO-USDT Liquidity Value": "DAO-USDT流动性价值",
+  "No Data": "暂无数据",
+  "Power Phase": "第",
+  "Power Expect": "期",
+
+  Activities: "进行中的活动",
+  "Will caculate and airdrop within 3 workdays after the last day.":
+    "周期结束后，3个工作日内完成统计并空投。",
+
+  "Stake DST": "DST质押",
+  "DST Stake": "DST质押",
+  "DST Staked Total Amount": "已质押DST",
+  "DST Stakeable Amount": "可质押DST",
+  "DST Staked History": "质押记录",
+  "DST Staked Success": "DST质押成功",
+  "DST Stake Duration": "质押周期",
+  "DST Staked Amount": "DST质押数量"
 };

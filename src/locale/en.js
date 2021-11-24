@@ -143,5 +143,73 @@ export default {
   "First stake period is ended, please wait for second period.":
     "First stake period is ended, please wait for second period.",
   "Stake History": "Stake History",
-  "First stake": "Phase 1"
+  "First stake": "Phase 1",
+
+  CHN: "CHN",
+  "Current forging to be released": "Current forging to be released",
+  "Hash power node (NH) status": "Hash power node (NH) status",
+  "Forging event has ended": "Forging event has ended",
+  Node: {
+    None: "None",
+    "Planet node": "Planet node",
+    "Stellar node": "Stellar node"
+  },
+  "Choose a forging pool": "Choose a forging pool",
+  "Enter the forging amount": "Enter the forging amount",
+  "At least": "At least",
+  BurnForging: "BurnForging",
+  BurnForgingForm: {
+    "BurnForging Amount": "BurnForging Amount",
+    "The amount exceeds the balance": "The amount exceeds the balance",
+    "The amount exceeds the max forgeable amount":
+      "The amount exceeds the max forgeable amount",
+    "The amount is be gt zero": "The amount is be gt zero",
+    "Invalid amount": "Invalid amount",
+    "The amount is required": "The amount is required",
+    "The amount does not meet the requirements":
+      "The amount does not meet the requirements",
+    "Invalid duration": "Invalid duration",
+    "The duration is required": "The duration is required"
+  },
+  Rate: "Rate",
+  Available: "Available",
+  "Forging Success": "Forging Success",
+  "Forging History": "Forging History",
+  "Forging Amount": "Forging Amount",
+  "Receive Amount": "Receive Amount",
+  "CHN Duration": "CHN Duration",
+  "Releasable Amount": "Releasable Amount",
+  "Released Amount": "Released Amount",
+  Operation: "Operation",
+
+  "Hash Mining": "Hash Mining",
+  "Competition Mining": "Competition Mining",
+  "Power Duration": "Period",
+  "Power Column Power": "Power Column Power",
+  "Claimable Amount": "Claimable Amount",
+  "Claimabled Amount": "Claimabled Amount",
+  "Power Column AnnualizedRate": "Power Column AnnualizedRate",
+  "Whole network/node computing power": "Whole network/node computing power",
+  "Status/Number of LPs": "Status/Number of LPs",
+  "Power All Hash": "All Hash",
+  "Power Node Proportion": "Node Proportion",
+  "Power Node Hash Value": "Node Hash Value",
+  "Power Node Status": "Node Status",
+  "Power DAO-USDT Liquidity Value": "DAO-USDT Liquidity Value",
+  "No Data": "No Data",
+  "Power Phase": "Phase",
+  "Power Expect": "",
+
+  Activities: "Activities",
+  "Will caculate and airdrop within 3 workdays after the last day.":
+    "Will caculate and airdrop within 3 workdays after the last day.",
+
+  "Stake DST": "Stake DST",
+  "DST Stake": "DST Stake",
+  "DST Staked Total Amount": "DST Stake Total Amount",
+  "DST Stakeable Amount": "DST Stakeable Amount",
+  "DST Staked History": "DST Staked History",
+  "DST Staked Success": "DST Staked Success",
+  "DST Stake Duration": "Staked Duration",
+  "DST Staked Amount": "DST Staked Amount"
 };

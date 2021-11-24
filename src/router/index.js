@@ -6,6 +6,8 @@ import CrowdsaleForRetailEnd from "../views/crowdsale/CrowdsaleForRetailEnd.vue"
 import AirdropToRelationship from "../views/airdrop/AirdropToRelationship.vue";
 import AirdropForSwapsSnapshot from "../views/airdrop/AirdropForSwapsSnapshot.vue";
 // import AirdropEnd from "../views/airdrop/AirdropEnd.vue";
+import CrowdsaleForRetailUnlimited from "../views/crowdsale/crowdsaleForRetailUnlimited/CrowdsaleForRetailUnlimited.vue";
+import CrowdsaleForRetailUnlimitedHistory from "../views/crowdsale/crowdsaleForRetailUnlimited/CrowdsaleForRetailUnlimitedHistory.vue";
 
 Vue.use(VueRouter);
 
@@ -39,6 +41,24 @@ const routes = [
             path: "/stake/period-2",
             name: "StakePeriod2",
             component: CrowdsaleForRetail2
+          }
+        ]
+      },
+      {
+        path: "/stake-dst",
+        name: "StakeDST",
+        redirect: "/stake-dst/stake",
+        component: () => import("@/layouts/home/ViewBlank.vue"),
+        children: [
+          {
+            path: "/stake-dst/stake",
+            name: "CrowdsaleForRetailUnlimited",
+            component: CrowdsaleForRetailUnlimited
+          },
+          {
+            path: "/stake-dst/history",
+            name: "CrowdsaleForRetailUnlimitedHistory",
+            component: CrowdsaleForRetailUnlimitedHistory
           }
         ]
       },
