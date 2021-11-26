@@ -78,3 +78,38 @@ export function toThousandFilter(num) {
 export function uppercaseFirst(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
+
+/**
+ * 判断节点类型
+ */
+export function judgeCHNNodeType(value) {
+  if (value > 10 && value <= 20) {
+    return "Planet node";
+  } else if (value > 20) {
+    return "Stellar node";
+  } else {
+    return "None";
+  }
+}
+
+/**
+ * 根据值判断节点类型
+ */
+export function judgeCHNNodeTypeByValue(value) {
+  if (value == 2) {
+    return "Planet node";
+  } else if (value == 1) {
+    return "Stellar node";
+  } else {
+    return "None";
+  }
+}
+
+// 数值排序
+export function compare(property) {
+  return function(a, b) {
+    var value1 = a[property];
+    var value2 = b[property];
+    return value2 - value1;
+  };
+}

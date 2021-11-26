@@ -59,6 +59,22 @@
             >{{ $t("Airdrop") }}</v-tab
           >
           <v-tab
+            to="/hash-mining"
+            :ripple="false"
+            class="font-weight-bold"
+            min-width="96"
+            text
+            >{{ $t("Hash Mining") }}</v-tab
+          >
+          <!-- <v-tab
+            to="/competition-mining"
+            :ripple="false"
+            class="font-weight-bold"
+            min-width="96"
+            text
+            >{{ $t("Competition Mining") }}</v-tab
+          > -->
+          <v-tab
             to="/invite"
             :ripple="false"
             class="font-weight-bold"
@@ -113,6 +129,14 @@
           <v-list-item to="/airdrop">
             <v-list-item-title>{{ $t("Airdrop") }}</v-list-item-title>
           </v-list-item>
+          <v-list-item to="/hash-mining">
+            <v-list-item-title>{{ $t("Hash Mining") }}</v-list-item-title>
+          </v-list-item>
+          <!-- <v-list-item to="/competition-mining">
+            <v-list-item-title>{{
+              $t("Competition Mining")
+            }}</v-list-item-title>
+          </v-list-item> -->
           <v-list-item to="/invite">
             <v-list-item-title>{{ $t("Invite") }}</v-list-item-title>
           </v-list-item>
