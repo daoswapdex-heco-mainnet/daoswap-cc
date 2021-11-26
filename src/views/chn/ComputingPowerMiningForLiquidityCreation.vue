@@ -35,7 +35,7 @@
                   <img :src="require('@/assets/logo.png')" alt="DAO" />
                 </v-avatar>
                 <span class="title font-weight-bold text-h5">
-                  {{ $t("Hash Mining") }}
+                  {{ $t("Competition Mining") }}
                 </span>
               </v-card-title>
               <v-divider></v-divider>
@@ -69,7 +69,7 @@
                     </p>
                     <!-- <p>
                       {{ $t("Power Node Hash Value") }}：$
-                      {{ item.powerInfo.powerValue }}
+                      {{ item.countedPowerValue }}
                     </p> -->
                     <p>
                       {{ $t("Power Node Status") }}：{{
@@ -77,8 +77,9 @@
                       }}
                     </p>
                     <!-- <p>
-                      {{ $t("Power DAO-USDT Liquidity Value") }}：$
-                      {{ item.powerInfo.liquidity }}
+                      {{ $t("Power DAO-USDT Liquidity Value") }}：{{
+                        item.powerInfo.liquidity
+                      }}
                     </p> -->
                     <p>
                       {{ $t("Claimable Amount") }} /
@@ -187,23 +188,23 @@ import clip from "@/utils/clipboard";
 import { getContract, weiToEther } from "@/utils/web3";
 import { judgeCHNNodeTypeByValue, compare } from "@/filters/index";
 // 引入合约 ABI 文件
-import ComputingPowerMining from "@/constants/contractJson/ComputingPowerMiningForLiquidity.json";
+import ComputingPowerMining from "@/constants/contractJson/ComputingPowerMiningForLiquidityCreation.json";
 
 export default {
-  name: "ComputingPowerMiningForLiquidity",
+  name: "ComputingPowerMiningForLiquidityCreation",
   data: () => ({
     loading: false,
-    tokenSymbol: "DAO",
+    tokenSymbol: "DST",
     // 算力合约列表
     powerDuration: "2021-11-09 11:00:00 ~ 2021-11-23 11:00:00",
     powerContractAddressList: [
       {
         id: 1,
-        address: "0x486a483adDf8446AE2412A1E9bf30D1A90f0e026"
+        address: "0xb18C7e2ba4C5cdA22B3EF5E6294Ae0A8B538fFD2"
       }
       // {
       //   id: 2,
-      //   address: "0x3Bcc30467B7e256c43E2be6Ff28dEa0cb59BA667"
+      //   address: "0xfe2692574cC1f8397251F85677E7A73006bCc454"
       // }
     ],
     // 算力数据列表
@@ -242,8 +243,7 @@ export default {
       return this.$store.state.web3.web3;
     },
     address() {
-      // return "0x3DdcFc89B4DD2b33d9a8Ca0F60180527E9810D4B";
-      // return "0x7d3dE024dEB70741c6Dfa0FaD57775A47C227AE2";
+      // return "0xe704Bac32967D1FA457cdB65520240277E006f5A";
       return this.$store.state.web3.address;
     }
   },

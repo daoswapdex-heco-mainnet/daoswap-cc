@@ -7,7 +7,7 @@ import AirdropToRelationship from "../views/airdrop/AirdropToRelationship.vue";
 import AirdropForSwapsSnapshot from "../views/airdrop/AirdropForSwapsSnapshot.vue";
 // import AirdropEnd from "../views/airdrop/AirdropEnd.vue";
 import ComputingPowerMiningForLiquidity from "../views/chn/ComputingPowerMiningForLiquidity.vue";
-// import ComputingPowerMiningForLiquidityCreation from "../views/chn/ComputingPowerMiningForLiquidityCreation.vue";
+import ComputingPowerMiningForLiquidityCreation from "../views/chn/ComputingPowerMiningForLiquidityCreation.vue";
 import CrowdsaleForRetailUnlimited from "../views/crowdsale/crowdsaleForRetailUnlimited/CrowdsaleForRetailUnlimited.vue";
 import CrowdsaleForRetailUnlimitedHistory from "../views/crowdsale/crowdsaleForRetailUnlimited/CrowdsaleForRetailUnlimitedHistory.vue";
 
@@ -74,11 +74,11 @@ const routes = [
         name: "Hash Mining",
         component: ComputingPowerMiningForLiquidity
       },
-      // {
-      //   path: "/competition-mining",
-      //   name: "Competition Mining",
-      //   component: ComputingPowerMiningForLiquidityCreation
-      // },
+      {
+        path: "/competition-mining",
+        name: "Competition Mining",
+        component: ComputingPowerMiningForLiquidityCreation
+      },
       {
         path: "/invite",
         name: "Invite",
