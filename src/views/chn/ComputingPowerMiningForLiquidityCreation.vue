@@ -196,16 +196,16 @@ export default {
     loading: false,
     tokenSymbol: "DST",
     // 算力合约列表
-    powerDuration: "2021-11-09 11:00:00 ~ 2021-11-23 11:00:00",
+    powerDuration: "2021-11-26 11:00:00 ~ 2021-12-10 11:00:00",
     powerContractAddressList: [
       {
         id: 1,
         address: "0xb18C7e2ba4C5cdA22B3EF5E6294Ae0A8B538fFD2"
+      },
+      {
+        id: 2,
+        address: "0xdd500Bfa0640e07b940F5770b4CbFAb15DB2Fefc"
       }
-      // {
-      //   id: 2,
-      //   address: "0xfe2692574cC1f8397251F85677E7A73006bCc454"
-      // }
     ],
     // 算力数据列表
     powerDataList: [],
