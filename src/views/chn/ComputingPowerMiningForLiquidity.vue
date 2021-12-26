@@ -195,7 +195,7 @@ export default {
     loading: false,
     tokenSymbol: "DAO",
     // 算力合约列表
-    powerDuration: "2021-11-26 11:00:00 ~ 2021-12-10 11:00:00",
+    powerDuration: "2021-12-10 11:00:00 ~ 2021-12-24 11:00:00",
     powerContractAddressList: [
       {
         id: 1,
@@ -204,6 +204,10 @@ export default {
       {
         id: 2,
         address: "0x84892cb24159d3DBdB9b704c4c5a86b52d21D915"
+      },
+      {
+        id: 3,
+        address: "0x2B2F68df4B8DDae04ACCDd15470c9f2cC8e1f926"
       }
     ],
     // 算力数据列表
