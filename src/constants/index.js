@@ -33,11 +33,6 @@ export const AirdropForSwapsSnapshotContractAddress =
 export const CrowdsaleForRetailUnlimitedContractAddress =
   "0x7737b0AC92a7B8d94c18F19A4d59513ec0abdFc9";
 
-export const StakingLimitTokenAddress =
-  "0x1dbCac9E084A25d542893B14128a5910dF43a6b7";
-export const StakingLimitContractAddress =
-  "0xCa2fCA74d3F5a66991896A70015359bF2989704C";
-
 /********** base **********/
 export const DAOAddress = "0xc096332CAacF00319703558988aD03eC6586e704";
 
@@ -55,7 +50,7 @@ export const FACTORY_ADDRESS = "0x2216574F455CCc9E5FF9384Bbbd24e47c569CF67";
 
 export const BUNDLE_ID = "1";
 
-export const WHITE_LISTS_SWITCH = true;
+export const WHITE_LISTS_SWITCH = false;
 export const WHITE_LISTS = [
   "0x9b1d0c9c1aE96011776e6786b4Efe884665918D2",
   "0xa9bB710996d6ed61B83a5EAB583bAe683199c2de",
