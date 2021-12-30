@@ -144,6 +144,7 @@ export default {
     "First stake period is ended, please wait for second period.",
   "Stake History": "Stake History",
   "First stake": "Phase 1",
+  "Second stake": "Phase 2",
 
   CHN: "CHN",
   "Current forging to be released": "Current forging to be released",

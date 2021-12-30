@@ -16,11 +16,11 @@
                 <v-col class="body-1" cols="12">
                   <p>
                     {{ $t("OpeningTime") }}：
-                    {{ 1633015800 | parseTime("{y}-{m}-{d} {h}:{i}:{s}") }}
+                    {{ 1640919600 | parseTime("{y}-{m}-{d} {h}:{i}:{s}") }}
                   </p>
                   <p>
                     {{ $t("ClosingTime") }}：
-                    {{ 1640878200 | parseTime("{y}-{m}-{d} {h}:{i}:{s}") }}
+                    {{ 1656558000 | parseTime("{y}-{m}-{d} {h}:{i}:{s}") }}
                   </p>
                   <p>{{ $t("Price") }}：0.5 USDT</p>
                 </v-col>
@@ -251,6 +251,39 @@
               </v-card-actions>
             </v-card>
           </v-card>
+          <!-- 活动历史 -->
+          <v-card justify="center" class="fill-width mt-10">
+            <v-card-title>
+              <span class="title font-weight-light">
+                {{ $t("Stake History") }}
+              </span>
+            </v-card-title>
+            <v-divider></v-divider>
+            <v-card-text>
+              <v-card-actions class="justify-center">
+                <v-btn
+                  large
+                  width="80%"
+                  outlined
+                  color="#93B954"
+                  @click="gotoHistory(2)"
+                >
+                  {{ $t("Second stake") }}
+                </v-btn>
+              </v-card-actions>
+              <v-card-actions class="justify-center">
+                <v-btn
+                  large
+                  width="80%"
+                  outlined
+                  color="#93B954"
+                  @click="gotoHistory(1)"
+                >
+                  {{ $t("First stake") }}
+                </v-btn>
+              </v-card-actions>
+            </v-card-text>
+          </v-card>
           <!-- 当前钱包账号 -->
           <v-card justify="center" class="fill-width mt-10">
             <v-card-title>
@@ -342,7 +375,7 @@
 <script>
 import clip from "@/utils/clipboard";
 import {
-  CrowdsaleForRetailContractAddress2,
+  CrowdsaleForRetailContractAddress3,
   DATAddress,
   DAOAddress,
   ZeroAddress
@@ -470,7 +503,7 @@ export default {
         const web3 = await this.web3;
         const contract = getContract(
           CrowdsaleForRetail,
-          CrowdsaleForRetailContractAddress2,
+          CrowdsaleForRetailContractAddress3,
           web3
         );
         const joinedAmount = await contract.methods.joined(this.address).call();
@@ -548,7 +581,7 @@ export default {
           .symbol()
           .call();
         const allowance = await contract.methods
-          .allowance(this.address, CrowdsaleForRetailContractAddress2)
+          .allowance(this.address, CrowdsaleForRetailContractAddress3)
           .call();
         const balance = await contract.methods.balanceOf(this.address).call();
         this.accountAssets.allowanceAmount = weiToEther(allowance, web3);
@@ -566,7 +599,7 @@ export default {
       // 执行合约
       getContract(ERC20DAT, DATAddress, this.web3)
         .methods.approve(
-          CrowdsaleForRetailContractAddress2,
+          CrowdsaleForRetailContractAddress3,
           etherToWei(this.accountAssets.balance, this.web3)
         )
         .send({ from: this.address })
@@ -587,7 +620,7 @@ export default {
       // 执行合约
       getContract(
         CrowdsaleForRetail,
-        CrowdsaleForRetailContractAddress2,
+        CrowdsaleForRetailContractAddress3,
         this.web3
       )
         .methods.buyTokens(this.accountAssets.balance)
@@ -624,6 +657,10 @@ export default {
           this.loading = false;
           console.info(e);
         });
+    },
+    // 跳转历史记录
+    gotoHistory(period) {
+      this.$router.push({ path: `/stake/period-${period}` });
     }
   }
 };

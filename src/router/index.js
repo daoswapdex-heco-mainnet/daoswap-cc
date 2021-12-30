@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import CrowdsaleForRetail from "../views/crowdsale/CrowdsaleForRetail.vue";
 import CrowdsaleForRetail2 from "../views/crowdsale/CrowdsaleForRetail2.vue";
+import CrowdsaleForRetail3 from "../views/crowdsale/CrowdsaleForRetail3.vue";
 import CrowdsaleForRetailEnd from "../views/crowdsale/CrowdsaleForRetailEnd.vue";
 import AirdropToRelationship from "../views/airdrop/AirdropToRelationship.vue";
 import AirdropForSwapsSnapshot from "../views/airdrop/AirdropForSwapsSnapshot.vue";
@@ -26,7 +27,7 @@ const routes = [
       {
         path: "/stake",
         name: "Stake",
-        redirect: "/stake/period-2",
+        redirect: "/stake/period-3",
         component: () => import("@/layouts/home/View.vue"),
         children: [
           {
@@ -43,6 +44,11 @@ const routes = [
             path: "/stake/period-2",
             name: "StakePeriod2",
             component: CrowdsaleForRetail2
+          },
+          {
+            path: "/stake/period-3",
+            name: "StakePeriod3",
+            component: CrowdsaleForRetail3
           }
         ]
       },

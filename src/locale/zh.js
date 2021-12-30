@@ -140,6 +140,7 @@ export default {
     "第一阶段质押DAT已经结束了。第二阶段近期就重新开始。各位的DAT仍有效，请耐心等待第二阶段开启后再质押。",
   "Stake History": "活动历史",
   "First stake": "第一期",
+  "Second stake": "第二期",
 
   CHN: "CHN",
   "Current forging to be released": "当前锻造待释放",
