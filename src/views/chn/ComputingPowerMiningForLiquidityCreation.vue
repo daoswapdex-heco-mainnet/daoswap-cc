@@ -196,7 +196,7 @@ export default {
     loading: false,
     tokenSymbol: "DST",
     // 算力合约列表
-    powerDuration: "2021-12-24 11:00:00 ~ 2022-01-07 11:00:00",
+    powerDuration: "2022-01-07 11:00:00 ~ 2022-01-21 11:00:00",
     powerContractAddressList: [
       {
         id: 1,
@@ -209,6 +209,10 @@ export default {
       {
         id: 3,
         address: "0x19779B08E25A10824a9739AFEc8a77756DC78878"
+      },
+      {
+        id: 4,
+        address: "0x065D29Bb43B8b7996656AaCac357F7e3A70a06E4"
       }
     ],
     // 算力数据列表
