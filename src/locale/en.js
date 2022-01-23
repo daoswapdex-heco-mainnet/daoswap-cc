@@ -14,6 +14,9 @@ export default {
   News: "News",
 
   Close: "Close",
+  "No Data": "No Data",
+  Phase: "Phase",
+  Expect: "",
 
   "Stake Amount": "Stake Amount",
   "Stake begin in": "Stake begin in",
@@ -198,7 +201,6 @@ export default {
   "Power Node Hash Value": "Node Hash Value",
   "Power Node Status": "Node Status",
   "Power DAO-USDT Liquidity Value": "DAO-USDT Liquidity Value",
-  "No Data": "No Data",
   "Power Phase": "Phase",
   "Power Expect": "",
 
@@ -213,5 +215,15 @@ export default {
   "DST Staked History": "DST Staked History",
   "DST Staked Success": "DST Staked Success",
   "DST Stake Duration": "Staked Duration",
-  "DST Staked Amount": "DST Staked Amount"
+  "DST Staked Amount": "DST Staked Amount",
+
+  "Rewards Duration": "Rewards Duration",
+  "Staking Node Rewards": "Staking Node Rewards",
+  "Rewards All Staking": "Rewards All Staking",
+  "Rewards Node Proportion": "Rewards Node Proportion",
+  "Stellar New Quantity": "Stellar New Quantity",
+  "Planetary New Quantity": "Planetary New Quantity",
+  "Account New Quantity": "Account New Quantity",
+
+  "Task 6": "Task 6"
 };
