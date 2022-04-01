@@ -4,8 +4,8 @@ import CrowdsaleForRetail from "../views/crowdsale/CrowdsaleForRetail.vue";
 import CrowdsaleForRetail2 from "../views/crowdsale/CrowdsaleForRetail2.vue";
 import CrowdsaleForRetail3 from "../views/crowdsale/CrowdsaleForRetail3.vue";
 import CrowdsaleForRetailEnd from "../views/crowdsale/CrowdsaleForRetailEnd.vue";
-import AirdropToRelationship from "../views/airdrop/AirdropToRelationship.vue";
-import AirdropForSwapsSnapshot from "../views/airdrop/AirdropForSwapsSnapshot.vue";
+// import AirdropToRelationship from "../views/airdrop/AirdropToRelationship.vue";
+// import AirdropForSwapsSnapshot from "../views/airdrop/AirdropForSwapsSnapshot.vue";
 // import AirdropEnd from "../views/airdrop/AirdropEnd.vue";
 import ComputingPowerMiningForLiquidity from "../views/chn/ComputingPowerMiningForLiquidity.vue";
 import ComputingPowerMiningForLiquidityCreation from "../views/chn/ComputingPowerMiningForLiquidityCreation.vue";
@@ -71,11 +71,11 @@ const routes = [
           }
         ]
       },
-      {
-        path: "/airdrop",
-        name: "Airdrop",
-        component: AirdropForSwapsSnapshot
-      },
+      // {
+      //   path: "/airdrop",
+      //   name: "Airdrop",
+      //   component: AirdropForSwapsSnapshot
+      // },
       {
         path: "/hash-mining",
         name: "Hash Mining",
@@ -91,11 +91,11 @@ const routes = [
         name: "StakingNodeRewards",
         component: StakingNodeRewards
       },
-      {
-        path: "/invite",
-        name: "Invite",
-        component: AirdropToRelationship
-      },
+      // {
+      //   path: "/invite",
+      //   name: "Invite",
+      //   component: AirdropToRelationship
+      // },
       {
         path: "*",
         redirect: "/"
