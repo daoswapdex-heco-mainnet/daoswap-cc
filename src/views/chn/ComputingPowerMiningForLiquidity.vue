@@ -14,7 +14,7 @@
             <v-card-text>
               <v-row align="center">
                 <v-col class="body-1" cols="12">
-                  <p>{{ $t("Power Duration") }}：{{ powerDuration }}</p>
+                  <!-- <p>{{ $t("Power Duration") }}：{{ powerDuration }}</p> -->
                   <p>
                     {{
                       $t(
@@ -195,7 +195,7 @@ export default {
     loading: false,
     tokenSymbol: "DAO",
     // 算力合约列表
-    powerDuration: "2022-03-18 11:00:00 ~ 2022-04-01 11:00:00",
+    powerDuration: "2022-04-01 11:00:00 ~ 2022-04-28 11:00:00",
     powerContractAddressList: [
       {
         id: 1,
@@ -232,6 +232,10 @@ export default {
       {
         id: 9,
         address: "0x3f98f690DFec48a03848c045d2D5E7F4838ee70E"
+      },
+      {
+        id: 10,
+        address: "0xf6Fd451c9777dB8199D2465eD1A4B774F1075b52"
       }
     ],
     // 算力数据列表

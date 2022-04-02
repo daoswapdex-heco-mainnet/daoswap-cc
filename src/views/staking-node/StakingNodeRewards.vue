@@ -14,7 +14,7 @@
             <v-card-text>
               <v-row align="center">
                 <v-col class="body-1" cols="12">
-                  <p>{{ $t("Rewards Duration") }}：{{ powerDuration }}</p>
+                  <!-- <p>{{ $t("Rewards Duration") }}：{{ powerDuration }}</p> -->
                   <p>
                     {{
                       $t(
@@ -206,6 +206,10 @@ export default {
       {
         id: 5,
         address: "0x7B97DF1DEDB76E628Bd1b384844fBDC0C60b0aED"
+      },
+      {
+        id: 6,
+        address: "0xA5B603e07331eB45b32963a120d582e2e637c726"
       }
     ],
     // 算力数据列表
