@@ -222,8 +222,7 @@ export default {
       return this.$store.state.web3.web3;
     },
     address() {
-      return "0xe79A444D727a1F22dab1b077e5D45c8C71A5E84F";
-      // return this.$store.state.web3.address;
+      return this.$store.state.web3.address;
     }
   },
   methods: {
