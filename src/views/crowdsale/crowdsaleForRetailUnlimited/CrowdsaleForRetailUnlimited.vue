@@ -40,7 +40,8 @@
                   width="80%"
                   @click="
                     accountAssets.allowanceAmount &&
-                    accountAssets.allowanceAmount >= accountAssets.balance
+                    parseFloat(accountAssets.allowanceAmount) >=
+                      parseFloat(accountAssets.balance)
                       ? handleCrowdsale()
                       : handleApprove()
                   "
@@ -48,7 +49,8 @@
                 >
                   {{
                     accountAssets.allowanceAmount &&
-                    accountAssets.allowanceAmount >= accountAssets.balance
+                    parseFloat(accountAssets.allowanceAmount) >=
+                      parseFloat(accountAssets.balance)
                       ? $t("Stake")
                       : $t("Approve")
                   }}
@@ -220,7 +222,8 @@ export default {
       return this.$store.state.web3.web3;
     },
     address() {
-      return this.$store.state.web3.address;
+      return "0xe79A444D727a1F22dab1b077e5D45c8C71A5E84F";
+      // return this.$store.state.web3.address;
     }
   },
   methods: {
@@ -254,6 +257,7 @@ export default {
           .call();
         this.accountAssets.balance = weiToEther(balance, this.web3);
         this.accountAssets.allowanceAmount = weiToEther(allowance, this.web3);
+        console.info(this.accountAssets);
         // 查询质押合约信息
         await this.getCrowdsaleInfo();
       } catch (error) {
